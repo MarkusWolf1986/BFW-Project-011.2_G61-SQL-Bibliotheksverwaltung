@@ -30,7 +30,12 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Models
 
         // ISBN-Nummer (Spalte 'isbn').
         // Mit 'string?' erlaubst du, dass der Wert auch mal null sein kann.
-        public string? Isbn { get; set; }
+        // ALT (macht den Fehler):
+        // public string? Isbn { get; set; }
+
+        // NEU (ohne Nullable-Feature):
+        public string Isbn { get; set; } = string.Empty;  // Standard: leerer String statt null
+
 
         // Gibt an, ob es sich um eine Neuerscheinung handelt (Spalte 'neu_erscheinung').
         // MySQL-BOOLEAN wird in C# als bool abgebildet.

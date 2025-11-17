@@ -1,4 +1,5 @@
-﻿// 'using System;' wird für grundlegende .NET-Typen verwendet.
+﻿
+// 'using System;' wird für grundlegende .NET-Typen verwendet.
 // Hier brauchen wir es zwar noch nicht unbedingt, aber es ist
 // eine gute Standardvorgabe für jede Klasse.
 
