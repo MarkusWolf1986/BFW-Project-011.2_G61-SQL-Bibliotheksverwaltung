@@ -47,7 +47,7 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Data
             {
                 // 'using' sorgt dafür, dass die Verbindung am Ende des Blocks
                 // automatisch geschlossen und freigegeben wird, auch bei Fehlern.
-                using (var connection = new MySqlConnection(ConnectionString))
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
                 {
                     // Öffnet die Verbindung zur Datenbank.
                     connection.Open();
@@ -68,12 +68,12 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Data
         public List<Autor> GetAlleAutoren()
         {
             // Hier legen wir eine leere Liste an, in die wir nach und nach
-            // jeden gelesenen Autor einfügen.
-            var autoren = new List<Autor>();
+            // jeden gelesenen Autor einfügenusing (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            List<Autor> autoren = new List<Autor>();
 
             // Wieder ein 'using'-Block für die Verbindung, damit sie sauber
             // geöffnet und anschließend wieder geschlossen wird.
-            using (var connection = new MySqlConnection(ConnectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 // Verbindung zur Datenbank herstellen.
                 connection.Open();
@@ -84,20 +84,21 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Data
 
                 // MySqlCommand repräsentiert unseren SQL-Befehl,
                 // der auf der geöffneten Verbindung ausgeführt wird.
-                using (var command = new MySqlCommand(sql, connection))
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     // ExecuteReader führt den SELECT-Befehl aus und gibt ein
                     // 'MySqlDataReader'-Objekt zurück, mit dem wir Zeile für Zeile
                     // durch das Ergebnis iterieren können.
-                    using (var reader = command.ExecuteReader())
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         // Solange 'Read()' true zurückgibt, gibt es noch eine weitere Zeile.
                         while (reader.Read())
                         {
                             // Für jede Zeile erzeugen wir ein neues 'Autor'-Objekt
                             // und füllen seine Eigenschaften mit den Daten aus der aktuellen Zeile.
-
-                            var autor = new Autor
+                            // 'Autor' ist der konkrete Typ der Variable.
+                            // So sieht man sofort: Hier wird ein Autor-Objekt erzeugt.
+                            Autor autor = new Autor
                             {
                                 // Hier lesen wir die Spalte 'id' als int aus.
                                 // 'GetOrdinal("id")' liefert die Spaltenposition,
@@ -130,7 +131,7 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Data
             // 'using' sorgt dafür, dass die Verbindung nach der Benutzung
             // automatisch wieder geschlossen und freigegeben wird – auch wenn
             // unterwegs eine Exception geworfen wird.
-            using (var connection = new MySqlConnection(ConnectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 // Öffnet die Verbindung zur Datenbank.
                 connection.Open();
@@ -149,7 +150,7 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Data
 
                 // MySqlCommand repräsentiert unseren SQL-Befehl und weiß,
                 // dass er auf der geöffneten 'connection' ausgeführt werden soll.
-                using (var command = new MySqlCommand(sql, connection))
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     // Hier binden wir den Wert für den Parameter '@name' an den Befehl.
                     // 'autor.Name' ist der Name, den wir in die DB schreiben wollen.
