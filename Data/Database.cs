@@ -119,5 +119,65 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Data
             // gefüllte Liste von Autoren an den Aufrufer zurück.
             return autoren;
         }
+
+        // Diese Methode fügt einen neuen Autor in die Tabelle 'autor' ein.
+        // Parameter:
+        //   autor -> Das Autor-Objekt, das gespeichert werden soll. Wichtig ist hier vor allem 'autor.Name'.
+        // Rückgabewert:
+        //   Die neue, von der Datenbank vergebene ID (Primary Key) des Autors.
+        public int InsertAutor(Autor autor)
+        {
+            // 'using' sorgt dafür, dass die Verbindung nach der Benutzung
+            // automatisch wieder geschlossen und freigegeben wird – auch wenn
+            // unterwegs eine Exception geworfen wird.
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                // Öffnet die Verbindung zur Datenbank.
+                connection.Open();
+
+                // Dies ist der SQL-Befehl, den wir ausführen wollen.
+                // Wir fügen in die Tabelle 'autor' einen neuen Datensatz ein
+                // und setzen nur die Spalte 'name'.
+                //
+                // 'VALUES (@name)' bedeutet: Wir verwenden einen Parameter '@name',
+                // den wir im Code noch mit einem Wert befüllen.
+                //
+                // 'SELECT LAST_INSERT_ID();' ist eine MySQL-Funktion, die uns
+                // die ID des zuletzt eingefügten Datensatzes auf dieser Verbindung
+                // zurückgibt. Genau das brauchen wir, um die neue Autor-ID zu erfahren.
+                const string sql = "INSERT INTO autor (name) VALUES (@name); SELECT LAST_INSERT_ID();";
+
+                // MySqlCommand repräsentiert unseren SQL-Befehl und weiß,
+                // dass er auf der geöffneten 'connection' ausgeführt werden soll.
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    // Hier binden wir den Wert für den Parameter '@name' an den Befehl.
+                    // 'autor.Name' ist der Name, den wir in die DB schreiben wollen.
+                    //
+                    // 'AddWithValue("@name", autor.Name)' sorgt dafür, dass MySQL diesen
+                    // Wert sicher als Parameter bekommt (verhindert z.B. SQL-Injection).
+                    command.Parameters.AddWithValue("@name", autor.Name);
+
+                    // ExecuteScalar führt den SQL-Befehl aus und gibt den Wert aus
+                    // der ersten Spalte der ersten Zeile des Ergebnisses zurück.
+                    //
+                    // In unserem SQL-Befehl ist das der Rückgabewert von
+                    // 'SELECT LAST_INSERT_ID();', also die neue ID.
+                    object result = command.ExecuteScalar();
+
+                    // 'result' ist vom Typ object, wir wollen aber einen int.
+                    // Convert.ToInt32 versucht, den Wert in einen int umzuwandeln.
+                    int newId = Convert.ToInt32(result);
+
+                    // Wir schreiben die neue ID direkt in das übergebene 'autor'-Objekt.
+                    // So weiß der Aufrufer nach dem Insert, welche ID der Autor jetzt hat.
+                    autor.Id = newId;
+
+                    // Und geben die ID zusätzlich als Rückgabewert zurück.
+                    return newId;
+                }
+            }
+        }
+
     }
 }
