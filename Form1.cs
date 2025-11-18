@@ -64,7 +64,7 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung
         {
             // Erzeugt ein neues Objekt unserer Database-Klasse.
             // Über dieses Objekt sprechen wir mit der MySQL-Datenbank.
-            var db = new Database();
+            Database db = new Database();
 
             // Ruft die TestConnection-Methode auf.
             // Sie versucht, eine Verbindung aufzubauen und liefert:
@@ -106,12 +106,12 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung
         private void TestInsertAutor()
         {
             // 1. Database-Objekt erzeugen, um auf die Datenbank zugreifen zu können.
-            var db = new Database();
+            Database db = new Database();
 
             // 2. Ein neues Autor-Objekt vorbereiten, das wir speichern wollen.
             //    Wir hängen Datum und Uhrzeit an den Namen, damit du in phpMyAdmin
             //    leicht erkennen kannst, von welchem Testlauf der Eintrag stammt.
-            var neuerAutor = new Autor
+            Autor neuerAutor = new Autor
             {
                 // 'DateTime.Now' liefert das aktuelle Datum und die aktuelle Uhrzeit.
                 // Mit ToString("yyyy-MM-dd HH:mm:ss") formatieren wir das in ein
