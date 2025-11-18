@@ -1,4 +1,13 @@
-﻿namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung
+﻿
+// Chaty sagt zu dieser Datei unter anderem:
+
+// Diese Datei wurde vom Windows-Forms-Designer automatisch generiert.
+// Hier macht man zu 99 % keine Änderungen von Hand,
+// da der Designer sonst durcheinanderkommt.
+
+// Also am besten nichts hier ändern!
+
+namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung
 {
     partial class Form1
     {
