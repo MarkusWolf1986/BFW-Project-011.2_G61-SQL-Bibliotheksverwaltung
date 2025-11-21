@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung.Models
 {
     // Repräsentiert einen Genre-Eintrag aus der Tabelle 'genre'.
