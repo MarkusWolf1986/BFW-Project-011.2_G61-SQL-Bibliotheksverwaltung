@@ -39,6 +39,67 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung
     // und ist damit ein ganz normales Fenster.
     public partial class Form1 : Form
     {
+
+        // Ein einfaches Dark-Theme für Form und Controls.
+        private void ApplyDarkTheme()
+        {
+            // Hintergrund des Fensters
+            this.BackColor = Color.FromArgb(30, 30, 30);
+
+            // Standard-Textfarbe im Fenster
+            this.ForeColor = Color.White;
+
+            // Optional: einheitliche Schrift
+            this.Font = new Font("Segoe UI", 10F);
+
+            // Alle Controls auf dem Formular durchgehen und anpassen
+            foreach (Control ctrl in this.Controls)
+            {
+                // Standard: weißer Text
+                ctrl.ForeColor = Color.White;
+
+                // Für Labels reicht meist: nur Textfarbe (und evtl. transparent)
+                if (ctrl is Label label)
+                {
+                    label.ForeColor = Color.White;
+                    label.BackColor = Color.Transparent; // damit der Form-Hintergrund durchscheint
+                }
+
+                // TextBox: dunkler Hintergrund + weißer Text
+                if (ctrl is TextBox textBox)
+                {
+                    textBox.BackColor = Color.FromArgb(45, 45, 48);
+                    textBox.ForeColor = Color.White;
+                    textBox.BorderStyle = BorderStyle.FixedSingle;
+                }
+
+                // Button: dunkel + flat
+                if (ctrl is Button button)
+                {
+                    button.BackColor = Color.FromArgb(60, 60, 60);
+                    button.ForeColor = Color.White;
+                    button.FlatStyle = FlatStyle.Flat;
+                    button.FlatAppearance.BorderColor = Color.FromArgb(90, 90, 90);
+                }
+
+                // DataGridView: etwas mehr Einstellungen, damit es „dark“ wirkt
+                if (ctrl is DataGridView grid)
+                {
+                    grid.BackgroundColor = Color.FromArgb(30, 30, 30);
+                    grid.GridColor = Color.FromArgb(70, 70, 70);
+
+                    grid.DefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
+                    grid.DefaultCellStyle.ForeColor = Color.White;
+
+                    grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(60, 60, 60);
+                    grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+                    // Damit die Header-Styles wirklich greifen:
+                    grid.EnableHeadersVisualStyles = false;
+                }
+            }
+        }
+
         // Dies ist der Konstruktor von Form1. Er wird genau einmal aufgerufen,
         // wenn du irgendwo 'new Form1()' schreibst (z.B. in Program.cs).
         public Form1()
@@ -47,6 +108,9 @@ namespace BFW_Project_011._2_G61_SQL_Bibliotheksverwaltung
             // Sie legt alle Steuerelemente an (Buttons, Textboxen, etc.)
             // und setzt ihre Eigenschaften (Position, Größe, Text, ...).
             InitializeComponent();
+
+            // Aufruf für die DARK THEME Funktion
+            ApplyDarkTheme();
 
             // Hier registrieren wir unser eigenes Ereignis-Handling für das 'Load'-Ereignis.
             // 'this.Load' ist das Ereignis, das ausgelöst wird, wenn das Formular
